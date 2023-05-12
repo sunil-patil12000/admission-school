@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Profile.css'; // import your styling file
+import axios from 'axios';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 function Profile() {
+  const [datap, setDatap] = useState('');
+  const id = Cookies.get('user');
+
+  console.log(id)
+
+
+  useEffect(() => {
+    const gh = async () => {
+      const data = await axios.post('http://localhost:4545/getdata', {
+        id: id
+      })
+
+
+      setDatap(data.data)
+    }
+
+    gh()
+
+  }, [])
+
+
+  console.log(datap)
+
+
+
+
+
   return (
     <div className="profile-container">
-      <div className="profile-img"></div> {/* Add your profile image here */}
+      <div className="profile-img">
+        <img className='profile-img' src={'http://localhost:4545/' + datap.path} alt="" />
+      </div> {/* Add your profile image here */}
       <div className="profile-details">
-        <h1 className="profile-name">John Doe</h1>
-        <h2 className="profile-father">Father's Name: John Smith</h2>
-        <h2 className="profile-mother">Mother's Name: Jane Doe</h2>
-        <p className="profile-address">Address: 123 Main St, Anytown USA</p>
-        <p className="profile-phone">Phone: (123) 456-7890</p>
-        <p className="profile-email">Email: john.doe@email.com</p>
+        <h1 className="profile-name">{datap.firstname + " " + datap.lastname}</h1>
+        <h2 className="profile-father">Father's Name: {datap.fathername}</h2>
+        <h2 className="profile-mother">Mother's Name: {datap.mothername}</h2>
+        <p className="profile-address">Address: {datap.cuttentaddress}</p>
+        <p className="profile-phone">Phone: {'+91' + datap.phone}</p>
+        <p className="profile-email">Email: {datap.email}</p>
       </div>
     </div>
   );

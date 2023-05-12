@@ -1,6 +1,59 @@
-
+import { useEffect, useState } from "react"
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
+
+    const navigate = useNavigate();
+
+
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [cpassword, setCpassword] = useState('');
+    const URL = "http://localhost:4545"
+    const handlesubmit = () => {
+        if (password === cpassword) {
+
+
+            axios.post(URL + '/register', {
+                fname: fname,
+                lname: lname,
+                email: email,
+                password: password
+            }).then((res) => {
+               
+                console.log(res)
+
+
+
+                if (res.data.error === "user Already registered") {
+                    alert(res.data.error)
+                    setFname('');
+                    setLname('');
+                    setEmail('');
+                    setPassword('');
+                    setCpassword('');
+                    navigate('/register')
+
+                }
+                else {
+                    alert('student registered successfully ')
+                    navigate('/login')
+                }
+
+            })
+
+
+        }
+        else {
+            alert("password mitch")
+
+
+        }
+    }
+
     return (
         <>
 
@@ -23,13 +76,17 @@ const Register = () => {
                                                 <div className="col-md-6 mb-4">
                                                     <div className="form-outline">
                                                         <label className="form-label" htmlFor="form3Example1m">First name</label>
-                                                        <input type="text" id="form3Example1m" className="form-control form-control-lg" />
+                                                        <input type="text" id="form3Example1m" onChange={(e) => {
+                                                            setFname(e.target.value)
+                                                        }} className="form-control form-control-lg" />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6 mb-4">
                                                     <div className="form-outline">
                                                         <label className="form-label" htmlFor="form3Example1n">Last name</label>
-                                                        <input type="email" id="form3Example1n" className="form-control form-control-lg" />
+                                                        <input type="text" id="form3Example1n" onChange={(e) => {
+                                                            setLname(e.target.value)
+                                                        }} className="form-control form-control-lg" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -38,10 +95,12 @@ const Register = () => {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" htmlFor="form3Example8">Email</label>
-                                                <input type="text" id="form3Example8" className="form-control form-control-lg" />
+                                                <input type="email" id="form3Example8" onChange={(e) => {
+                                                    setEmail(e.target.value)
+                                                }} className="form-control form-control-lg" />
                                             </div>
 
-                                            
+
 
 
 
@@ -49,19 +108,23 @@ const Register = () => {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" htmlFor="form3Example90">Password</label>
-                                                <input type="password" id="form3Example90" className="form-control form-control-lg" />
+                                                <input type="password" onChange={(e) => {
+                                                    setPassword(e.target.value)
+                                                }} id="form3Example90" className="form-control form-control-lg" />
                                             </div>
 
 
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" htmlFor="form3Example97">Match Password</label>
-                                                <input type="text" id="form3Example97" className="form-control form-control-lg" />
+                                                <input type="text" id="form3Example97" onChange={(e) => {
+                                                    setCpassword(e.target.value)
+                                                }} className="form-control form-control-lg" />
                                             </div>
 
                                             <div className="d-flex justify-content-end pt-3">
 
-                                                <button type="submit" className="btn btn-warning btn-lg ms-2">Submit</button>
+                                                <button type="submit" onClick={handlesubmit} className="btn btn-warning btn-lg ms-2">Submit</button>
                                             </div>
 
                                         </div>

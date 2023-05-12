@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import "./AdmissionForm.css";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+const Admission = () => {
 
-const Admission= () => {
+  let navigate = useNavigate();
+
+
   const [formData, setFormData] = useState({
+    lid: Cookies.get('user'),
     firstName: "",
     lastName: "",
     fatherName: "",
@@ -16,9 +23,13 @@ const Admission= () => {
     phoneNumber: "",
     email: "",
     aadhaarNumber: "",
-    image: "",
   });
 
+  const [file, setFile] = useState(null);
+
+  const handleFileInputChange = (event) => {
+    setFile(event.target.files[0]);
+  }
 
 
   console.log(formData)
@@ -28,12 +39,74 @@ const Admission= () => {
     setFormData({
       ...formData,
       [name]: value,
+
+
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
+
+
+
+
+
+
+
+
+
+
+
+    // const form = new FormData();
+    // form.append('image', file);
+
+
+    Object.assign(formData, { 'image': file })
+
+
+
+
+
+    console.log(file)
+
+
+
+
+    axios.post('http://localhost:4545/admission', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => {
+      console.log(res)
+      if (res.status(200)==200) {
+
+        setFormData({
+          firstName: "",
+          lastName: "",
+          fatherName: "",
+          motherName: "",
+          gender: "",
+          currentAddress: "",
+          permanentAddress: "",
+          previousYearMarks: "",
+          previousClass: "",
+          dateOfBirth: "",
+          phoneNumber: "",
+          email: "",
+          aadhaarNumber: "",
+        })
+
+        navigate('/profile')
+
+
+      }
+    }).catch((e) => console.log(e))
+
+
+
+
+
     // You can submit the form data to the server or do other stuff here
   };
 
@@ -129,101 +202,107 @@ const Admission= () => {
             onChange={handleInputChange}
             value={formData.permanentAddress}
             required
-            />
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="previousYearMarks">Previous Year Marks</label>
-              <input
-                type="number"
-                name="previousYearMarks"
-                id="previousYearMarks"
-                className="form-control"
-                onChange={handleInputChange}
-                value={formData.previousYearMarks}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="previousClass">Previous Class</label>
-              <input
-                type="text"
-                name="previousClass"
-                id="previousClass"
-                className="form-control"
-                onChange={handleInputChange}
-                value={formData.previousClass}
-                required
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="dateOfBirth">Date of Birth</label>
-              <input
-                type="date"
-                name="dateOfBirth"
-                id="dateOfBirth"
-                className="form-control"
-                onChange={handleInputChange}
-                value={formData.dateOfBirth}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                type="tel"
-                name="phoneNumber"
-                id="phoneNumber"
-                className="form-control"
-                onChange={handleInputChange}
-                value={formData.phoneNumber}
-                required
-              />
-            </div>
-          </div>
+          />
+        </div>
+        <div className="form-row">
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="previousYearMarks">Previous Year Marks</label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type="number"
+              name="previousYearMarks"
+              id="previousYearMarks"
               className="form-control"
               onChange={handleInputChange}
-              value={formData.email}
+              value={formData.previousYearMarks}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="aadhaarNumber">Aadhaar Number</label>
+            <label htmlFor="previousClass">Previous Class</label>
             <input
               type="text"
-              name="aadhaarNumber"
-              id="aadhaarNumber"
+              name="previousClass"
+              id="previousClass"
               className="form-control"
               onChange={handleInputChange}
-              value={formData.aadhaarNumber}
+              value={formData.previousClass}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="dateOfBirth">Date of Birth</label>
+            <input
+              type="date"
+              name="dateOfBirth"
+              id="dateOfBirth"
+              className="form-control"
+              onChange={handleInputChange}
+              value={formData.dateOfBirth}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="image">Image</label>
+            <label htmlFor="phoneNumber">Phone Number</label>
             <input
-              type="file"
-              name="image"
-              id="image"
-              className="form-control-file"
+              type="tel"
+              name="phoneNumber"
+              id="phoneNumber"
+              className="form-control"
               onChange={handleInputChange}
-              
+              value={formData.phoneNumber}
+              required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-      );
-    };
-    
-    export default Admission;
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            className="form-control"
+            onChange={handleInputChange}
+            value={formData.email}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="aadhaarNumber">Aadhaar Number</label>
+          <input
+            type="text"
+            name="aadhaarNumber"
+            id="aadhaarNumber"
+            className="form-control"
+            onChange={handleInputChange}
+            value={formData.aadhaarNumber}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="image">Image</label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            className="form-control-file"
+            onChange={handleFileInputChange}
+
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Admission;
+
+
+
+
+
+
