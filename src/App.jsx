@@ -13,6 +13,7 @@ import Admin from './Admin/Admin'
 import Admission from './components/Admission'
 import AdminPanel from './components/Admin'
 import Profile from './Profile'
+import OTPVerification from './components/OTPpage'
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
+
+        <Route path='/otp-verifying' element={<OTPVerification />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/admission' element={<Admission />} />
         <Route path='/admin' element={<AdminPanel />} />
