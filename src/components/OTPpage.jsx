@@ -4,7 +4,7 @@ import './otp.css'
 import { useNavigate } from 'react-router-dom';
 
 const OTPVerification = () => {
-    const [otp, setOTP] = useState('');
+    
     const navigate = useNavigate();
 
     const handleOTPChange = (event) => {

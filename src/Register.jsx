@@ -17,9 +17,7 @@ const Register = () => {
     const handlesubmit = () => {
         if (password === cpassword) {
 
-            axios.post(URL + "/otpgen", {
-                email: email,
-            }).then((res) => console.log(res)).catch((e) => console.log(e))
+           
 
             axios.post(URL + '/register', {
                 fname: fname,
