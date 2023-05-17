@@ -107,10 +107,20 @@ const Admission = () => {
 
   const handleVerifyOTP = () => {
 
-    if (cotp === otp) {
-      setSub(true)
-      console.log(cotp + " = " + otp)
-    }
+
+    axios.post('http://localhost:4545/otpverify',{
+      otp:otp
+    }).then((res)=>{
+      console.log(res)
+      if (res.data.message==='OTP verification successful') {
+        setSub(true)
+      }
+    })
+
+    // if (cotp === otp) {
+    //   setSub(true)
+    //   console.log(cotp + " = " + otp)
+    // }
 
   };
 
@@ -280,40 +290,7 @@ const Admission = () => {
             />
           </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="form-control"
-            onChange={handleInputChange}
-            value={formData.email}
-            required
-          />
-          <button className="btn btn-primary mt-2" onClick={(e) => handleotp(e)}>Send OTP</button>
-
-        </div>
-        {
-          visible ? (<><div className="form-group">
-            <label htmlFor="email">Enter OTP</label>
-            <input
-              type="text"
-              name="otp"
-              id="otp"
-              className="form-control"
-              onChange={(e) => setOTP(e.target.value)}
-              value={otp}
-
-            />
-
-            <button className="btn btn-primary mt-2" onClick={(e) => {
-              e.preventDefault()
-              handleVerifyOTP()
-            }}>Submit OTP</button>
-            <span className="ms-2 fa-1x fw-semibold">{resp}</span>
-          </div></>) : (<></>)
-        }
+        
         <div className="form-group">
           <label htmlFor="aadhaarNumber">Aadhaar Number</label>
           <input
@@ -370,6 +347,40 @@ const Admission = () => {
 
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            className="form-control"
+            onChange={handleInputChange}
+            value={formData.email}
+            required
+          />
+          <button className="btn btn-primary mt-2" onClick={(e) => handleotp(e)}>Send OTP</button>
+
+        </div>
+        {
+          visible ? (<><div className="form-group">
+            <label htmlFor="email">Enter OTP</label>
+            <input
+              type="text"
+              name="otp"
+              id="otp"
+              className="form-control"
+              onChange={(e) => setOTP(e.target.value)}
+              value={otp}
+
+            />
+
+            <button className="btn btn-primary mt-2" onClick={(e) => {
+              e.preventDefault()
+              handleVerifyOTP()
+            }}>Submit OTP</button>
+            <span className="ms-2 fa-1x fw-semibold">{resp}</span>
+          </div></>) : (<></>)
+        }
 
 
         {

@@ -26,7 +26,7 @@ function Profile() {
   }, [])
 
 
-  console.log(datap)
+  console.log(datap.photo.path)
 
 
 
@@ -35,7 +35,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-img">
-        <img className='profile-img' src={'http://localhost:4545/' + datap.path} alt="" />
+        <img className='profile-img' src={'http://localhost:4545/' + datap.photo.path} alt="" />
       </div> {/* Add your profile image here */}
       <div className="profile-details">
         <h1 className="profile-name">{datap.firstname + " " + datap.lastname}</h1>
