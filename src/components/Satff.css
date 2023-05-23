@@ -1,0 +1,45 @@
+body {
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .staff-directory {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .staff-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .staff-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .staff-card .image img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .staff-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .staff-card p {
+    margin: 5px 0;
+  }
+  
+  h1 {
+    color: #00a6eb;
+  }
+  

@@ -18,6 +18,7 @@ const Admission = () => {
     branch: "",
     previousYearMarks: "",
     previousClass: "",
+    board: "",
     dateOfBirth: "",
     phoneNumber: "",
     email: "",
@@ -90,6 +91,7 @@ const Admission = () => {
           branch: "",
           previousYearMarks: "",
           previousClass: "",
+          board: "",
           dateOfBirth: "",
           phoneNumber: "",
           email: "",
@@ -108,11 +110,11 @@ const Admission = () => {
   const handleVerifyOTP = () => {
 
 
-    axios.post('http://localhost:4545/otpverify',{
-      otp:otp
-    }).then((res)=>{
+    axios.post('http://localhost:4545/otpverify', {
+      otp: otp
+    }).then((res) => {
       console.log(res)
-      if (res.data.message==='OTP verification successful') {
+      if (res.data.message === 'OTP verification successful') {
         setSub(true)
       }
     })
@@ -238,7 +240,7 @@ const Admission = () => {
             <option value="MECH">MECH</option>
           </select>
         </div>
-        <div className="form-row">
+        <div className="form-row gap-2">
           <div className="form-group">
             <label htmlFor="previousYearMarks">Previous Year Marks</label>
             <input
@@ -262,6 +264,21 @@ const Admission = () => {
               value={formData.previousClass}
               required
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="gender">Board</label>
+            <select
+              name="gender"
+              id="gender"
+              className="form-control"
+              onChange={handleInputChange}
+              value={formData.board}
+              required
+            >
+              <option value="">-- Select Board --</option>
+              <option value="State Board">State Board</option>
+              <option value="CBSE Board">CBSE Board</option>
+            </select>
           </div>
         </div>
         <div className="form-row">
@@ -290,7 +307,7 @@ const Admission = () => {
             />
           </div>
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="aadhaarNumber">Aadhaar Number</label>
           <input
@@ -307,6 +324,7 @@ const Admission = () => {
           <label htmlFor="image">Photo:</label>
           <input
             type="file"
+            accept="image/*"
             name="image"
             id="image"
             className="form-control-file"
@@ -318,6 +336,7 @@ const Admission = () => {
           <label htmlFor="image">Aadhaar photo:</label>
           <input
             type="file"
+            accept=".pdf"
             name="aadhaar-img"
             id="aadhaar-img"
             className="form-control-file"
@@ -331,6 +350,7 @@ const Admission = () => {
             type="file"
             name="pymc"
             id="pymc"
+            accept=".pdf"
             className="form-control-file"
             onChange={(e) => setPymc(e.target.files[0])}
 
@@ -342,6 +362,7 @@ const Admission = () => {
             type="file"
             name="ci"
             id="ci"
+            accept=".pdf"
             className="form-control-file"
             onChange={(e) => setCI(e.target.files[0])}
 

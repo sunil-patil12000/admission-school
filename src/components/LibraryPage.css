@@ -1,0 +1,44 @@
+.library-page {
+  margin: 20px;
+}
+
+.staff-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-card {
+  width: 300px;
+  height: 400px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-card img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.department-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.department-card {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}

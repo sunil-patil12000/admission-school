@@ -14,6 +14,9 @@ import Admission from './components/Admission'
 import AdminPanel from './components/Admin'
 import Profile from './Profile'
 import OTPVerification from './components/OTPpage'
+import Satff from './components/Satff'
+import Staff from './components/Satff'
+import LibraryPage from './components/Libabry'
 
 
 function App() {
@@ -30,6 +33,8 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/staff' element={<Staff />} />
+        <Route path='/library' element={<LibraryPage />} />
 
         <Route path='/otp-verifying' element={<OTPVerification />} />
         <Route path='/profile' element={<Profile />} />
