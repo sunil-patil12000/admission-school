@@ -4,7 +4,7 @@ import './otp.css'
 import { useNavigate } from 'react-router-dom';
 
 const OTPVerification = () => {
-    
+
     const navigate = useNavigate();
 
     const handleOTPChange = (event) => {
@@ -25,7 +25,8 @@ const OTPVerification = () => {
             })
             .catch((error) => {
                 console.log(error.response.data.error);
-                // Handle OTP verification error
+
+
             });
     };
 

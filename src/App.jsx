@@ -17,6 +17,7 @@ import OTPVerification from './components/OTPpage'
 import Satff from './components/Satff'
 import Staff from './components/Satff'
 import LibraryPage from './components/Libabry'
+import GalleryPage from './components/Gallery'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/staff' element={<Staff />} />
         <Route path='/library' element={<LibraryPage />} />
+        <Route path='/gallery' element={<GalleryPage />} />
 
         <Route path='/otp-verifying' element={<OTPVerification />} />
         <Route path='/profile' element={<Profile />} />

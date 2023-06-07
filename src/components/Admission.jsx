@@ -48,59 +48,80 @@ const Admission = () => {
     e.preventDefault()
     console.log(formData.email)
 
-    axios.post("http://localhost:4545/otpgen", {
-      email: formData.email,
-    }).then((res) => {
-      console.log(res)
-      if (res.data.message === 'OTP sent successfully') {
-        setVisible(true);
-        console.log(res.data)
-        setCotp(res.data.otp)
+    if (formData.email === '' && !formData.email) {
+      alert('Please Enter Email Id')
+
+
+    } else {
+
+
+
+      axios.post("http://localhost:4545/otpgen", {
+        email: formData.email,
+      }).then((res) => {
+        console.log(res)
+        if (res.data.message === 'OTP sent successfully') {
+          setVisible(true);
+          console.log(res.data)
+          setCotp(res.data.otp)
+
+        }
 
       }
+      ).catch((e) => console.log(e))
 
     }
-    ).catch((e) => console.log(e))
   }
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    Object.assign(formData, {
-      'image': file,
-      'aadhaarimg': aadhaarimg,
-      'pymc': pymc,
-      'ci': ci
-    })
 
-    axios.post('http://localhost:4545/admission', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((res) => {
-      console.log(res)
-      if (res.status === 200) {
-        setFormData({
-          firstName: "",
-          lastName: "",
-          fatherName: "",
-          motherName: "",
-          gender: "",
-          currentAddress: "",
-          permanentAddress: "",
-          branch: "",
-          previousYearMarks: "",
-          previousClass: "",
-          board: "",
-          dateOfBirth: "",
-          phoneNumber: "",
-          email: "",
-          aadhaarNumber: "",
-        })
-        navigate('/profile')
-      }
-    }).catch((e) => console.log(e))
+    const isEmpty = Object.values(formData).some((value) => value === "");
+    if (isEmpty) {
+      alert("Please fill in all the fields.");
+      return;
+    }
+
+
+    Object.assign(formData, {
+      image: file,
+      aadhaarimg: aadhaarimg,
+      pymc: pymc,
+      ci: ci,
+    });
+
+    axios
+      .post("http://localhost:4545/admission", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setFormData({
+            firstName: "",
+            lastName: "",
+            fatherName: "",
+            motherName: "",
+            gender: "",
+            currentAddress: "",
+            permanentAddress: "",
+            branch: "",
+            previousYearMarks: "",
+            previousClass: "",
+            board: "",
+            dateOfBirth: "",
+            phoneNumber: "",
+            email: "",
+            aadhaarNumber: "",
+          });
+          navigate("/profile");
+        }
+      })
+      .catch((e) => console.log(e));
   };
+
 
   const [otp, setOTP] = useState('');
   const [resp, setResp] = useState('');
@@ -268,8 +289,8 @@ const Admission = () => {
           <div className="form-group">
             <label htmlFor="gender">Board</label>
             <select
-              name="gender"
-              id="gender"
+              name="board"
+              id="board"
               className="form-control"
               onChange={handleInputChange}
               value={formData.board}
@@ -279,6 +300,7 @@ const Admission = () => {
               <option value="State Board">State Board</option>
               <option value="CBSE Board">CBSE Board</option>
             </select>
+
           </div>
         </div>
         <div className="form-row">
