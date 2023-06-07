@@ -31,8 +31,15 @@ const Admission = () => {
   const [ci, setCI] = useState(null);
 
   const handleFileInputChange = (event) => {
-    setFile(event.target.files[0]);
-  }
+    const selectedFile = event.target.files[0];
+    // Check file size
+    const fileSizeLimit = 10 * 1024 * 1024; // 10MB
+    if (selectedFile && selectedFile.size <= fileSizeLimit) {
+      setFile(selectedFile);
+    } else {
+      alert("File size exceeds the limit (10MB). Please select a smaller file.");
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
