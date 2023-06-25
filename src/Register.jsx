@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axios from 'axios'
+import axios, { all } from 'axios'
 import { useNavigate } from "react-router-dom"
 import OTPVerification from "./components/OTPpage";
 
@@ -17,7 +17,7 @@ const Register = () => {
     const handlesubmit = () => {
         if (password === cpassword) {
 
-           
+
 
             axios.post(URL + '/register', {
                 fname: fname,
@@ -41,9 +41,9 @@ const Register = () => {
 
                 }
                 else {
+                    alert("register done 👍")
+                    navigate('/login');
 
-                    navigate('/otp-verifying');
-                   
                 }
 
             })
